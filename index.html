@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planning Persiapan UTBK-SNBT 2027</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            maroon: '#800000',
+            krem: '#f5f5dc',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #f5f5dc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .step { display: none; }
+    .step.active { display: block; animation: fadeIn 0.5s; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+  <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl overflow-hidden border-t-8 border-maroon">
+    
+    <!-- Header -->
+    <div class="bg-maroon text-krem text-center p-6">
+      <h1 class="text-2xl font-bold">LKPD Planning Persiapan UTBK-SNBT</h1>
+      <p class="text-sm mt-2">Timeline & Real Action: Nov 2026 – Mar 2027</p>
+    </div>
+
+    <!-- Form Container -->
+    <div class="p-8">
+      <form id="utbkForm">
+        
+        <!-- STEP 1: Data Diri -->
+        <div class="step active" id="step1">
+          <h2 class="text-xl font-bold text-maroon mb-4 border-b-2 border-krem pb-2">Bagian 1: Data Diri</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700">Nama Lengkap</label>
+              <input type="text" name="nama" required class="mt-1 w-full border border-gray-300 rounded p-2 focus:ring-maroon focus:border-maroon">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700">Kelas / No. Absen</label>
+              <input type="text" name="kelas" required class="mt-1 w-full border border-gray-300 rounded p-2 focus:ring-maroon focus:border-maroon">
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-sm font-semibold text-gray-700">Sekolah Asal</label>
+              <input type="text" name="sekolah" required class="mt-1 w-full border border-gray-300 rounded p-2 focus:ring-maroon focus:border-maroon">
+            </div>
+          </div>
+          <div class="mt-6 flex justify-end">
+            <button type="button" onclick="nextStep(1)" class="bg-maroon text-white px-6 py-2 rounded shadow hover:bg-red-900 transition">Selanjutnya</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Target PTN -->
+        <div class="step" id="step2">
+          <h2 class="text-xl font-bold text-maroon mb-4 border-b-2 border-krem pb-2">Bagian 2: Target PTN & Prodi</h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700">Pilihan 1 (Target Utama)</label>
+              <input type="text" name="targetUtama" placeholder="Contoh: UI - Kedokteran" class="mt-1 w-full border border-gray-300 rounded p-2">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700">Pilihan 2 (Realistis)</label>
+              <input type="text" name="targetRealistis" placeholder="Contoh: Undip - Kesehatan Masyarakat" class="mt-1 w-full border border-gray-300 rounded p-2">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700">Rencana Cadangan (Plan B)</label>
+              <input type="text" name="planB" placeholder="Contoh: Seleksi Mandiri, PTS, Kedinasan" class="mt-1 w-full border border-gray-300 rounded p-2">
+            </div>
+          </div>
+          <div class="mt-6 flex justify-between">
+            <button type="button" onclick="prevStep(2)" class="bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500 transition">Kembali</button>
+            <button type="button" onclick="nextStep(2)" class="bg-maroon text-white px-6 py-2 rounded shadow hover:bg-red-900 transition">Selanjutnya</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Analisis & Refleksi -->
+        <div class="step" id="step3">
+          <h2 class="text-xl font-bold text-maroon mb-4 border-b-2 border-krem pb-2">Bagian 3: Analisis & Refleksi</h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700">Fokus Subtes Paling Lemah (Prioritas Belajar)</label>
+              <select name="subtesLemah" class="mt-1 w-full border border-gray-300 rounded p-2">
+                <option value="Penalaran Umum">Penalaran Umum (TPS)</option>
+                <option value="Penalaran Matematika">Penalaran Matematika</option>
+                <option value="Literasi Bahasa Inggris">Literasi Bahasa Inggris</option>
+                <option value="Pemahaman Bacaan & Menulis">Pemahaman Bacaan & Menulis</option>
+                <option value="Lainnya">Lainnya...</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700">Bagian mana dari rencana belajarmu yang paling sulit dilaksanakan? Apa solusinya?</label>
+              <textarea name="hambatan" rows="2" class="mt-1 w-full border border-gray-300 rounded p-2"></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700">Siapa yang akan menjadi teman belajarmu (accountability partner)?</label>
+              <input type="text" name="partner" class="mt-1 w-full border border-gray-300 rounded p-2">
+            </div>
+            
+            <div class="flex items-start mt-4 bg-red-50 p-3 rounded border border-red-200">
+              <div class="flex items-center h-5">
+                <input type="checkbox" name="komitmen" id="komitmen" required class="w-4 h-4 text-maroon border-gray-300 rounded focus:ring-maroon">
+              </div>
+              <div class="ml-3 text-sm">
+                <label for="komitmen" class="font-medium text-gray-700">Pernyataan Komitmen</label>
+                <p class="text-gray-500">Saya berkomitmen menjalankan rencana persiapan UTBK ini dengan disiplin dan siap dievaluasi.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Notifikasi Loading -->
+          <div id="loadingMsg" class="hidden text-center text-maroon font-semibold mt-4">Menyimpan data, mohon tunggu...</div>
+          
+          <div class="mt-6 flex justify-between">
+            <button type="button" onclick="prevStep(3)" class="bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500 transition">Kembali</button>
+            <button type="submit" class="bg-maroon text-white px-6 py-2 rounded shadow hover:bg-red-900 transition font-bold">Kirim Data</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: Success Message -->
+        <div class="step text-center py-10" id="step4">
+          <div class="text-green-600 text-6xl mb-4">✓</div>
+          <h2 class="text-2xl font-bold text-gray-800">Perencanaan Berhasil Disimpan!</h2>
+          <p class="text-gray-600 mt-2">Semoga sukses dalam persiapan UTBK-SNBT 2027.</p>
+          <button type="button" onclick="location.reload()" class="mt-6 text-maroon font-semibold underline">Isi form baru</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // MASUKKAN URL WEB APP DARI GOOGLE APPS SCRIPT DI SINI
+    const GOOGLE_SCRIPT_URL = 'PASTE_URL_WEB_APP_ANDA_DISINI';
+
+    // Logika pindah halaman (Wizard)
+    function nextStep(current) {
+      document.getElementById('step' + current).classList.remove('active');
+      document.getElementById('step' + (current + 1)).classList.add('active');
+    }
+    
+    function prevStep(current) {
+      document.getElementById('step' + current).classList.remove('active');
+      document.getElementById('step' + (current - 1)).classList.add('active');
+    }
+
+    // Logika pengiriman data ke Google Sheet
+    document.getElementById('utbkForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      if(GOOGLE_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzJIpxqay5NJSM_bx7aq8DfAzuxk-Pgo24IyYP8nn9oO2JOrnQHlCSPu92l8NqaRSg/exec') {
+        alert("Peringatan: URL Google Apps Script belum dimasukkan di dalam kode HTML!");
+        return;
+      }
+
+      document.getElementById('loadingMsg').classList.remove('hidden');
+      
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+      data.komitmen = document.getElementById('komitmen').checked; // Tangkap status checkbox
+
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Penting agar tidak diblokir oleh sistem keamanan browser
+        cache: 'no-cache',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        document.getElementById('loadingMsg').classList.add('hidden');
+        nextStep(3); // Pindah ke halaman Sukses
+      })
+      .catch(error => {
+        alert('Terjadi kesalahan koneksi. Silakan coba lagi.');
+        console.error('Error:', error);
+        document.getElementById('loadingMsg').classList.add('hidden');
+      });
+    });
+  </script>
+</body>
+</html>
